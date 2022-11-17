@@ -35,6 +35,8 @@ In this example, we illustrate how to show separate columns for different parts 
     }
     ```
 
+---
+
 2. Define the Date and Time unbound columns and use [UnboundExpresssions](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.ColumnBase.UnboundExpression) to show the corresponding date and time values:
 
     ```xaml
@@ -60,7 +62,10 @@ In this example, we illustrate how to show separate columns for different parts 
     </dxg:GridControl.Columns>
     ```
 
+    **IMPORTANT:**
     With this solution, cells in these columns are read-only. If editing is required, consider using solution #1 or #3.
+
+---
 
 3. Define the unbound Date and Time columns and utilize the [CustomUnboundColumnData](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnData) event or [CustomUnboundColumnDataCommand](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnDataCommand) to execute the required conversion:
 
@@ -88,7 +93,8 @@ In this example, we illustrate how to show separate columns for different parts 
                     Source[e.SourceIndex].DateTime = ((DateTime)e.Value).Date + time;
                     break;
                 case "Time":
-                    Source[e.SourceIndex].DateTime = Source[e.SourceIndex].DateTime.Date.AddTicks(((DateTime)e.Value).TimeOfDay.Ticks);
+                    Source[e.SourceIndex].DateTime = Source[e.SourceIndex].DateTime.Date
+                          .AddTicks(((DateTime)e.Value).TimeOfDay.Ticks);
                     break;
                 default:
                     break;
@@ -96,6 +102,8 @@ In this example, we illustrate how to show separate columns for different parts 
         }
     }
     ```
+
+---
 
 **See also:**
 [Unbound Columns](https://docs.devexpress.com/WPF/6124/controls-and-libraries/data-grid/grid-view-data-layout/columns-and-card-fields/unbound-columns)
