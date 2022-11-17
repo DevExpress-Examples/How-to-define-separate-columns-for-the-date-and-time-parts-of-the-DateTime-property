@@ -1,4 +1,4 @@
-﻿<Window x:Class="DateAndTimeColumns_UnboundEditable.MainWindow"
+<Window x:Class="DateAndTimeColumns_UnboundEditable.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
