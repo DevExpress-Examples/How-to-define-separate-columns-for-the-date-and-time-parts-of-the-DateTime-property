@@ -1,8 +1,8 @@
-# How to define separate columns for the date and time parts of the DateTime property
+# How to define separate columns for the date and time portions of the DateTime property
 
-In this example, we illustrate how to show separate columns for different parts of DateTime objects. There are three ways to accomplish the task:
+Our WPF Data Grid allows you to display separate columns for different portions of DateTime objects. To display separate columns, you can:
 
-1. Adjust the implementation of the data item class and add extra Date and Time properties. Use these properties as wrappers for the DateTime property:
+1.	Modify the implementation of the data item class and add extra Date and Time properties. Use these properties as wrappers for the DateTime property:
 
     ```cs
     public class Item : BindableBase
@@ -37,8 +37,7 @@ In this example, we illustrate how to show separate columns for different parts 
 
 ---
 
-2. Define the Date and Time unbound columns and use [UnboundExpresssions](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.ColumnBase.UnboundExpression) to show the corresponding date and time values:
-
+2.	Define Date and Time unbound columns and use [UnboundExpresssions](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.ColumnBase.UnboundExpression) to display corresponding date and time values:
     ```xaml
     <dxg:GridControl.Columns>
         <dxg:GridColumn FieldName="Date"
@@ -62,12 +61,11 @@ In this example, we illustrate how to show separate columns for different parts 
     </dxg:GridControl.Columns>
     ```
 
-    **IMPORTANT:**
-    With this solution, cells in these columns are read-only. If editing is required, consider using solution #1 or #3.
+    **IMPORTANT:** If you chose this option, cells within these columns will be read-only. To edit values, consider using solution #1 or #3.
 
 ---
 
-3. Define the unbound Date and Time columns and utilize the [CustomUnboundColumnData](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnData) event or [CustomUnboundColumnDataCommand](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnDataCommand) to execute the required conversion:
+3.	Define unbound Date and Time columns and utilize the [CustomUnboundColumnData](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnData) event or [CustomUnboundColumnDataCommand](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnDataCommand) to execute the required conversion:
 
     ```cs
     private void ColumnData(UnboundColumnRowArgs e) {
