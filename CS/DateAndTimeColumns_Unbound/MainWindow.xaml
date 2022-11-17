@@ -15,7 +15,7 @@
         <dxg:GridControl ItemsSource="{Binding Source}" >
             <dxg:GridControl.Columns>
                 <dxg:GridColumn FieldName="Date" Header="Date" UnboundType="DateTime" UnboundExpression="GetDate([DateTime])" AllowEditing="False"/>
-                <dxg:GridColumn FieldName="Time" Header="Time" UnboundType="DateTime" UnboundExpression="AddTicks(Today(), GetTimeOfDay([DateTime]))" AllowEditing="False">
+                <dxg:GridColumn FieldName="Time" Header="Time" UnboundType="DateTime" UnboundExpression="AddTicks(Today(), GetTimeOfDay([DateTime]))" AllowEditing="False" RoundDateTimeForColumnFilter="False">
                     <dxg:GridColumn.EditSettings>
                         <dxe:DateEditSettings DisplayFormat="T">
                             <dxe:DateEditSettings.StyleSettings>
@@ -25,6 +25,9 @@
                     </dxg:GridColumn.EditSettings>
                 </dxg:GridColumn>
             </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView ShowAutoFilterRow="True" ShowCriteriaInAutoFilterRow="True" />
+            </dxg:GridControl.View>
         </dxg:GridControl>
     </Grid>
 </Window>

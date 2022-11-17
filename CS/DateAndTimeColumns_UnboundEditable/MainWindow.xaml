@@ -15,7 +15,7 @@
         <dxg:GridControl ItemsSource="{Binding Source}" CustomUnboundColumnDataCommand="{Binding UnboundColumnDataCommand}">
             <dxg:GridControl.Columns>
                 <dxg:GridColumn FieldName="Date" UnboundType="DateTime"/>
-                <dxg:GridColumn FieldName="Time" UnboundType="DateTime">
+                <dxg:GridColumn FieldName="Time" UnboundType="DateTime" RoundDateTimeForColumnFilter="False">
                     <dxg:GridColumn.EditSettings>
                         <dxe:DateEditSettings DisplayFormat="T">
                             <dxe:DateEditSettings.StyleSettings>
@@ -25,6 +25,9 @@
                     </dxg:GridColumn.EditSettings>
                 </dxg:GridColumn>
             </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView ShowAutoFilterRow="True" ShowCriteriaInAutoFilterRow="True" />
+            </dxg:GridControl.View>
         </dxg:GridControl>
     </Grid>
 </Window>
