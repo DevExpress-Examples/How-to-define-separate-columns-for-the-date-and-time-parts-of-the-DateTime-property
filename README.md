@@ -105,3 +105,4 @@ Our WPF Data Grid allows you to display separate columns for different portions 
 
 **See also:**
 [Unbound Columns](https://docs.devexpress.com/WPF/6124/controls-and-libraries/data-grid/grid-view-data-layout/columns-and-card-fields/unbound-columns)
+
