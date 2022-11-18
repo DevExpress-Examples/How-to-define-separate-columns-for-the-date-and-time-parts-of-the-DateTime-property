@@ -40,8 +40,6 @@ Our WPF Data Grid allows you to display separate columns for different portions 
     }
     ```
 
----
-
 2.	Define Date and Time unbound columns and use [UnboundExpresssions](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.ColumnBase.UnboundExpression) to display corresponding date and time values:
     ```xaml
     <dxg:GridControl.Columns>
@@ -67,8 +65,6 @@ Our WPF Data Grid allows you to display separate columns for different portions 
     ```
 
     **IMPORTANT:** If you chose this option, cells within these columns will be read-only. To edit values, consider using solution #1 or #3.
-
----
 
 3.	Define unbound Date and Time columns and utilize the [CustomUnboundColumnData](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnData) event or [CustomUnboundColumnDataCommand](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnDataCommand) to execute the required conversion:
 
