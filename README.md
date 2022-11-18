@@ -3,105 +3,143 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T1128471)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-# How to define separate columns for the date and time portions of the DateTime property
+# WPF Data Grid - Define Separate Columns for the Date and Time Portions of the DateTime Property
 
-Our WPF Data Grid allows you to display separate columns for different portions of DateTime objects. To display separate columns, you can:
+Our [WPF Data Grid](https://docs.devexpress.com/WPF/6084/controls-and-libraries/data-grid) allows you to display separate columns for different portions of [DateTime](https://learn.microsoft.com/en-us/dotnet/api/system.datetime) objects. To display separate columns, you can use one of the following techniques:
 
-1.	Modify the implementation of the data item class and add extra Date and Time properties. Use these properties as wrappers for the DateTime property:
+* [Create Additional Date and Time Properties](#create-additional-date-and-time-properties)
+* [Use Unbound Expressions](#use-unbound-expressions)
+* [Use the CustomUnboundColumnData Command](#use-the-customunboundcolumndata-command)
 
-    ```cs
-    public class Item : BindableBase
-    {
-        private DateTime dateTime;
-        public DateTime DateTime {
-            get => dateTime;
-            set {
-                dateTime = value;
-                RaisePropertiesChanged();
-            }
-        }
-    
-        public DateTime Date {
-            get => dateTime.Date;
-            set {
-                var time = dateTime.TimeOfDay;
-                DateTime = value.Date + time;
-                RaisePropertiesChanged();
-            }
-        }
-    
-        public DateTime Time {
-            get => DateTime.Today.AddTicks(dateTime.TimeOfDay.Ticks);
-            set {
-                DateTime = dateTime.Date.AddTicks(value.TimeOfDay.Ticks);
-                RaisePropertiesChanged();
-            }
+## Create Additional Date and Time Properties
+
+Modify the implementation of the data item class and add the **Date** and **Time** properties. Use these properties as wrappers for the `DateTime` property:
+
+```cs
+public class Item : BindableBase {
+    private DateTime dateTime;
+    public DateTime DateTime {
+        get => dateTime;
+        set {
+            dateTime = value;
+            RaisePropertiesChanged();
         }
     }
-    ```
 
-2.	Define Date and Time unbound columns and use [UnboundExpresssions](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.ColumnBase.UnboundExpression) to display corresponding date and time values:
-    ```xaml
-    <dxg:GridControl.Columns>
-        <dxg:GridColumn FieldName="Date"
-                        Header="Date"
-                        UnboundType="DateTime"
-                        UnboundExpression="GetDate([DateTime])"
-                        AllowEditing="False"/>
-        <dxg:GridColumn FieldName="Time" 
-                        Header="Time"
-                        UnboundType="DateTime" 
-                        UnboundExpression="AddTicks(Today(), GetTimeOfDay([DateTime]))"
-                        AllowEditing="False">
-            <dxg:GridColumn.EditSettings>
-                <dxe:DateEditSettings DisplayFormat="T">
-                    <dxe:DateEditSettings.StyleSettings>
-                        <dxe:DateEditTimePickerStyleSettings/>
-                    </dxe:DateEditSettings.StyleSettings>
-                </dxe:DateEditSettings>
-            </dxg:GridColumn.EditSettings>
-        </dxg:GridColumn>
-    </dxg:GridControl.Columns>
-    ```
-
-    **IMPORTANT:** If you chose this option, cells within these columns will be read-only. To edit values, consider using solution #1 or #3.
-
-3.	Define unbound Date and Time columns and utilize the [CustomUnboundColumnData](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnData) event or [CustomUnboundColumnDataCommand](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnDataCommand) to execute the required conversion:
-
-    ```cs
-    private void ColumnData(UnboundColumnRowArgs e) {
-        if (e.IsGetData) {
-            switch (e.FieldName) {
-                case "Date":
-                    e.Value = Source[e.SourceIndex].DateTime.Date;
-                    break;
-                case "Time":
-                    e.Value = DateTime.Today.AddTicks(Source[e.SourceIndex].DateTime.TimeOfDay.Ticks);
-                    break;
-                default:
-                    break;
-            }
-    
-            return;
-        }
-    
-        if (e.IsSetData) {
-            switch (e.FieldName) {
-                case "Date":
-                    var time = Source[e.SourceIndex].DateTime.TimeOfDay;
-                    Source[e.SourceIndex].DateTime = ((DateTime)e.Value).Date + time;
-                    break;
-                case "Time":
-                    Source[e.SourceIndex].DateTime = Source[e.SourceIndex].DateTime.Date
-                          .AddTicks(((DateTime)e.Value).TimeOfDay.Ticks);
-                    break;
-                default:
-                    break;
-            }
+    public DateTime Date {
+        get => dateTime.Date;
+        set {
+            var time = dateTime.TimeOfDay;
+            DateTime = value.Date + time;
+            RaisePropertiesChanged();
         }
     }
-    ```
 
----
-**See also:**
-[Unbound Columns](https://docs.devexpress.com/WPF/6124/controls-and-libraries/data-grid/grid-view-data-layout/columns-and-card-fields/unbound-columns)
+    public DateTime Time {
+        get => DateTime.Today.AddTicks(dateTime.TimeOfDay.Ticks);
+        set {
+            DateTime = dateTime.Date.AddTicks(value.TimeOfDay.Ticks);
+            RaisePropertiesChanged();
+        }
+    }
+}
+```
+
+### Files to Review
+
+* [Item.cs](./CS/DateAndTimeColumns_Properties/Item.cs) (VB: [Item.vb](./VB/DateAndTimeColumns_Properties/Item.vb))
+* [MainWindow.xaml](./CS/DateAndTimeColumns_Properties/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/DateAndTimeColumns_Properties/MainWindow.xaml))
+
+
+## Use Unbound Expressions
+
+Define the **Date** and **Time** unbound columns and use [UnboundExpresssions](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.ColumnBase.UnboundExpression) to display corresponding date and time values:
+
+```xaml
+<dxg:GridControl.Columns>
+    <dxg:GridColumn FieldName="Date"
+                    Header="Date"
+                    UnboundType="DateTime"
+                    UnboundExpression="GetDate([DateTime])"
+                    AllowEditing="False"/>
+    <dxg:GridColumn FieldName="Time" 
+                    Header="Time"
+                    UnboundType="DateTime" 
+                    UnboundExpression="AddTicks(Today(), GetTimeOfDay([DateTime]))"
+                    AllowEditing="False">
+        <dxg:GridColumn.EditSettings>
+            <dxe:DateEditSettings DisplayFormat="T">
+                <dxe:DateEditSettings.StyleSettings>
+                    <dxe:DateEditTimePickerStyleSettings/>
+                </dxe:DateEditSettings.StyleSettings>
+            </dxe:DateEditSettings>
+        </dxg:GridColumn.EditSettings>
+    </dxg:GridColumn>
+</dxg:GridControl.Columns>
+```
+
+If implemented, this technique makes unbound columns read-only. To allow users to edit column values, use other techniques ([Create Additional Date and Time Properties](#create-additional-date-and-time-properties) or [Use the CustomUnboundColumnData Command](#use-the-customunboundcolumndata-command)).
+
+
+### Files to Review
+
+* [Item.cs](./CS/DateAndTimeColumns_Unbound/Item.cs) (VB: [Item.vb](./VB/DateAndTimeColumns_Unbound/Item.vb))
+* [MainWindow.xaml](./CS/DateAndTimeColumns_Unbound/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/DateAndTimeColumns_Unbound/MainWindow.xaml))
+
+
+## Use the CustomUnboundColumnData Command
+
+Define the **Date** and **Time** unbound columns and use the [CustomUnboundColumnData](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnData) event or [CustomUnboundColumnDataCommand](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnDataCommand) to execute the conversion:
+
+```cs
+private void ColumnData(UnboundColumnRowArgs e) {
+    if (e.IsGetData) {
+        switch (e.FieldName) {
+            case "Date":
+                e.Value = Source[e.SourceIndex].DateTime.Date;
+                break;
+            case "Time":
+                e.Value = DateTime.Today.AddTicks(Source[e.SourceIndex].DateTime.TimeOfDay.Ticks);
+                break;
+            default:
+                break;
+        }
+
+        return;
+    }
+
+    if (e.IsSetData) {
+        switch (e.FieldName) {
+            case "Date":
+                var time = Source[e.SourceIndex].DateTime.TimeOfDay;
+                Source[e.SourceIndex].DateTime = ((DateTime)e.Value).Date + time;
+                break;
+            case "Time":
+                Source[e.SourceIndex].DateTime = Source[e.SourceIndex].DateTime.Date
+                      .AddTicks(((DateTime)e.Value).TimeOfDay.Ticks);
+                break;
+            default:
+                break;
+        }
+    }
+}
+```
+
+
+### Files to Review
+
+* [Item.cs](./CS/DateAndTimeColumns_UnboundEditable/Item.cs) (VB: [Item.vb](./VB/DateAndTimeColumns_UnboundEditable/Item.vb))
+* [MainWindow.xaml](./CS/DateAndTimeColumns_UnboundEditable/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/DateAndTimeColumns_UnboundEditable/MainWindow.xaml))
+* [MainViewModel.cs](./CS/DateAndTimeColumns_UnboundEditable/MainViewModel.cs) (VB: [MainViewModel.vb](./VB/DateAndTimeColumns_UnboundEditable/MainViewModel.vb))
+
+
+## Documentation
+
+* [Unbound Columns](https://docs.devexpress.com/WPF/6124/controls-and-libraries/data-grid/grid-view-data-layout/columns-and-card-fields/unbound-columns)
+* [CustomUnboundColumnDataCommand](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnDataCommand)
+* [UnboundExpresssions](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.ColumnBase.UnboundExpression)
+
+
+## More Examples
+
+* [WPF Data Grid - Create Unbound Columns](https://github.com/DevExpress-Examples/how-to-create-unbound-columns-e1503)
