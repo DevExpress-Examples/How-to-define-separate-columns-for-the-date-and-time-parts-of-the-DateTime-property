@@ -78,7 +78,7 @@ Define the **Date** and **Time** unbound columns and use [UnboundExpresssions](h
 </dxg:GridControl.Columns>
 ```
 
-If you chose this option, cells within these columns will be read-only. To edit values, consider using solution #1 or #3.
+If implemented, this technique makes unbound columns read-only. To allow users to edit column values, use other techniques ([Create Additional Date and Time Properties](#create-additional-date-and-time-properties) or [Use the CustomUnboundColumnData Command](#use-the-customunboundcolumndata-command)).
 
 
 ### Files to Review
@@ -138,3 +138,8 @@ private void ColumnData(UnboundColumnRowArgs e) {
 * [Unbound Columns](https://docs.devexpress.com/WPF/6124/controls-and-libraries/data-grid/grid-view-data-layout/columns-and-card-fields/unbound-columns)
 * [CustomUnboundColumnDataCommand](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridControl.CustomUnboundColumnDataCommand)
 * [UnboundExpresssions](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.ColumnBase.UnboundExpression)
+
+
+## More Examples
+
+* [WPF Data Grid - Create Unbound Columns](https://github.com/DevExpress-Examples/how-to-create-unbound-columns-e1503)
