@@ -16,7 +16,7 @@
             <dxg:GridControl ItemsSource="{Binding Source}">
                 <dxg:GridControl.Columns>
                     <dxg:GridColumn FieldName="Date"/>
-                    <dxg:GridColumn FieldName="Time">
+                    <dxg:GridColumn FieldName="Time" RoundDateTimeForColumnFilter="False">
                         <dxg:GridColumn.EditSettings>
                             <dxe:DateEditSettings DisplayFormat="T">
                                 <dxe:DateEditSettings.StyleSettings>
@@ -26,6 +26,9 @@
                         </dxg:GridColumn.EditSettings>
                     </dxg:GridColumn>
                 </dxg:GridControl.Columns>
+                <dxg:GridControl.View>
+                    <dxg:TableView ShowAutoFilterRow="True" ShowCriteriaInAutoFilterRow="True" />
+                </dxg:GridControl.View>
             </dxg:GridControl>
         </Grid>
     </Grid>
