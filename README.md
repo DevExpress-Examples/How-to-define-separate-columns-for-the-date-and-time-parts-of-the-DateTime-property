@@ -67,6 +67,7 @@ Define both **Date** and **Time** unbound columns and use [UnboundExpresssions](
                     Header="Time"
                     UnboundType="DateTime" 
                     UnboundExpression="AddTicks(Today(), GetTimeOfDay([DateTime]))"
+                    RoundDateTimeForColumnFilter="False"
                     AllowEditing="False">
         <dxg:GridColumn.EditSettings>
             <dxe:DateEditSettings DisplayFormat="T">
