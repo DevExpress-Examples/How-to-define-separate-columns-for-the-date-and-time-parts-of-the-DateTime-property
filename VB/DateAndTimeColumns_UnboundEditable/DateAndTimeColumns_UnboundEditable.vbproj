@@ -1,18 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OptionInfer>On</OptionInfer>
-		<OutputType>WinExe</OutputType>
-		<TargetFrameworks>net6.0-windows</TargetFrameworks>
-		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
-		<LangVersion>16</LangVersion>
-		<EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
-		<RootNamespace />
-	</PropertyGroup>
-	<ItemGroup>
-		<ApplicationDefinition Include="App.xaml" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="devexpress.wpf.grid.core" Version="22.1.6" />
-	</ItemGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net8.0-windows</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <LangVersion>16</LangVersion>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="devexpress.wpf.grid.core" Version="24.2.1-alpha-24207" />
+  </ItemGroup>
 </Project>

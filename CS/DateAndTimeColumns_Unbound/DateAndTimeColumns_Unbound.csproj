@@ -1,15 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net6.0-windows;net472</TargetFrameworks>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-	<LangVersion>Latest</LangVersion>
+    <LangVersion>Latest</LangVersion>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="devexpress.wpf.grid.core" Version="22.1.6" />
+    <PackageReference Include="devexpress.wpf.grid.core" Version="24.2.1-alpha-24207" />
   </ItemGroup>
-
 </Project>
